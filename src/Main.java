@@ -34,7 +34,7 @@ public class Main {
 
 
     static void printE(String num){
-        System.out.println("Value of e using " + num + " iterations is " + getE(num));
+        System.out.println("Value of e using " + num + " iterations is " + getE(Integer.parseInt(num)));
     }
     static void printFactorial(String num){
         try {
@@ -75,16 +75,19 @@ public class Main {
         }
         return t2;
     }
-    static BigDecimal getE(String iterations){
-        if (Integer.parseInt(iterations)==0){
-            return new BigDecimal("1");
+
+    static float getE(int iterations){
+        if (iterations == 0){
+            return 1;
         }
-        int iter = Integer.parseInt(iterations) - 1;
-        String iterated = Integer.toString(iter);
-        BigDecimal append = getE(iterated);
-        BigDecimal toReturn = new BigDecimal("1").divide(new BigDecimal(iterations), ).setScale(20);
-        return toReturn.add(append);
+        int denominator = new BigInteger(Integer.toString(iterations)).intValue();
+        int denom = getFactorial(new BigInteger("" + denominator)).intValue();
+        return (float) 1/denom + getE(iterations - 1);
+//        return new BigDecimal(1/denom + getE(iterations-1));
+
     }
+
+
 
     static void printIncorrectArg(String arg){
         System.out.println("Unknown command line argument: " + arg);
